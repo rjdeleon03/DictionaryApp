@@ -16,10 +16,12 @@ import java.util.List;
 
 public class DictionaryRepository {
 
-    private Gson _gson;
+    private final Gson _gson;
+    private final DictionaryDatabase _db;
 
     public DictionaryRepository(Context context) {
         _gson = new GsonBuilder().create();
+        _db = DictionaryDatabase.getDictionaryDatabase(context);
         seedData(context);
     }
 
@@ -40,6 +42,13 @@ public class DictionaryRepository {
             Type listType = new TypeToken<ArrayList<Entry>>(){}.getType();
 
             dictEntries = _gson.fromJson(dictJson, listType);
+
+            for(Entry entry : dictEntries) {
+                _db.entryDao().insertAll(entry);
+            }
+
+            List<Entry> retrieved = _db.entryDao().getAll();
+            int x = 5;
 
         } catch (Exception ex) {
             ex.printStackTrace();
