@@ -25,7 +25,7 @@ public class DictionaryRepository {
 
     private void seedData(Context context) {
 
-        String dictJson = null;
+        String dictJson;
         try {
             /* Read JSON data from file */
             InputStream is = context.getAssets().open("json/dict.json");
@@ -36,12 +36,10 @@ public class DictionaryRepository {
             dictJson = new String(buffer, "UTF-8");
 
             /* Deserialize JSON data */
-            JSONObject json;
             List<Entry> dictEntries = null;
             Type listType = new TypeToken<ArrayList<Entry>>(){}.getType();
 
-            dictEntries = _gson.fromJson(dictJson, listType);
-            int x = 5;
+            dictEntries = _gson.fromJson(dictJson, listType);c
 
         } catch (Exception ex) {
             ex.printStackTrace();
