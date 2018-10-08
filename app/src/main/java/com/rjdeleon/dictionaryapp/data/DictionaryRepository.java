@@ -39,7 +39,7 @@ public class DictionaryRepository {
             List<Entry> dictEntries = null;
             Type listType = new TypeToken<ArrayList<Entry>>(){}.getType();
 
-            dictEntries = _gson.fromJson(dictJson, listType);c
+            dictEntries = _gson.fromJson(dictJson, listType);
 
         } catch (Exception ex) {
             ex.printStackTrace();
