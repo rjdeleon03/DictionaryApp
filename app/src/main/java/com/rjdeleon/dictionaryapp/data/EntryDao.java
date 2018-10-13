@@ -10,6 +10,9 @@ import java.util.List;
 @Dao
 public interface EntryDao {
 
+    @Query("SELECT count(*) FROM entry")
+    int getCount();
+
     @Query("SELECT * FROM entry")
     List<Entry> getAll();
 

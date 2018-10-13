@@ -27,6 +27,8 @@ public class DictionaryRepository {
 
     private void seedData(Context context) {
 
+        if(_db.entryDao().getCount() > 0) return;
+
         String dictJson;
         try {
             /* Read JSON data from file */
