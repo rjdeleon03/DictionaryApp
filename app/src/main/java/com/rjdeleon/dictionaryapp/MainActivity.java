@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.rjdeleon.dictionaryapp.data.DictionaryRepository;
 import com.rjdeleon.dictionaryapp.list.ListFragment;
+import com.rjdeleon.dictionaryapp.list.ListPresenter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,12 +14,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DictionaryRepository dictionaryRepository = new DictionaryRepository(this);
-        if (getSupportFragmentManager().findFragmentById(android.R.id.content) == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(android.R.id.content, new ListFragment())
-                    .commit();
-        }
+        ListFragment listFragment = new ListFragment();
+        ListPresenter listPresenter = new ListPresenter();
+        listPresenter.setContext(this);
+        listFragment.setPresenter(listPresenter);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, listFragment)
+                .commit();
     }
 }

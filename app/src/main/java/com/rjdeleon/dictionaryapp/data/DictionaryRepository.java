@@ -55,6 +55,9 @@ public class DictionaryRepository {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
 
+    public List<Entry> getAllEntries() {
+        return _db.entryDao().getAll();
     }
 }
