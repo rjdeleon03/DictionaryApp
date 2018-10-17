@@ -6,13 +6,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class DictionaryRepository {
 
@@ -48,9 +47,6 @@ public class DictionaryRepository {
             for(Entry entry : dictEntries) {
                 _db.entryDao().insertAll(entry);
             }
-
-            List<Entry> retrieved = _db.entryDao().getAll();
-            int x = 5;
 
         } catch (Exception ex) {
             ex.printStackTrace();
