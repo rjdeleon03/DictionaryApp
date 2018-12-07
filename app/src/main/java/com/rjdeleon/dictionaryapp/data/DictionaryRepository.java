@@ -15,16 +15,19 @@ import javax.inject.Inject;
 
 public class DictionaryRepository {
 
+    private final Context context;
     private final Gson _gson;
     private final DictionaryDatabase _db;
 
+    @Inject
     public DictionaryRepository(Context context) {
+        this.context = context;
         _gson = new GsonBuilder().create();
         _db = DictionaryDatabase.getDictionaryDatabase(context);
-        seedData(context);
+        seedData();
     }
 
-    private void seedData(Context context) {
+    private void seedData() {
 
         if(_db.entryDao().getCount() > 0) return;
 

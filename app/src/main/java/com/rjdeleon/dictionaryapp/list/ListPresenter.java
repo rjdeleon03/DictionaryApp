@@ -4,9 +4,6 @@ import android.content.Context;
 
 import com.rjdeleon.dictionaryapp.data.DictionaryRepository;
 import com.rjdeleon.dictionaryapp.data.Entry;
-import com.rjdeleon.dictionaryapp.di.ContextModule;
-import com.rjdeleon.dictionaryapp.di.DaggerMainComponent;
-import com.rjdeleon.dictionaryapp.di.MainComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +18,7 @@ public class ListPresenter {
     }
 
     public void setContext(Context context) {
-
-        MainComponent mainComponent = DaggerMainComponent.builder()
-                .contextModule(new ContextModule(context))
-                .build();
-        dictionaryRepository = new DictionaryRepository(mainComponent.getContext());
+        dictionaryRepository = new DictionaryRepository(context);
         entries = dictionaryRepository.getAllEntries();
     }
 
