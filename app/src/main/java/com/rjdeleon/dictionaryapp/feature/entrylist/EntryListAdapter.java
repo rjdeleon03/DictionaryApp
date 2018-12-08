@@ -52,7 +52,6 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         };
     }

@@ -9,5 +9,19 @@
         android:id="@+id/listFragment"
         android:name="com.rjdeleon.dictionaryapp.feature.entrylist.EntryListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_entryFragment"
+            app:destination="@id/entryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/entryFragment"
+        android:name="com.rjdeleon.dictionaryapp.feature.entry.EntryFragment"
+        android:label="fragment_entry"
+        tools:layout="@layout/fragment_entry" >
+        <argument
+            android:name="entryId"
+            android:defaultValue="value"
+            app:argType="integer" />
+    </fragment>
 </navigation>
