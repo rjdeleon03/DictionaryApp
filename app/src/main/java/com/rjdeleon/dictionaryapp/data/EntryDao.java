@@ -1,5 +1,6 @@
 package com.rjdeleon.dictionaryapp.data;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -14,7 +15,10 @@ public interface EntryDao {
     int getCount();
 
     @Query("SELECT * FROM entry")
-    List<Entry> getAll();
+    LiveData<List<Entry>> getAll();
+
+    @Query("SELECT * FROM entry where id = :id")
+    LiveData<Entry> findById(int id);
 
     @Query("SELECT * FROM entry where word LIKE :word")
     Entry findByWord(String word);

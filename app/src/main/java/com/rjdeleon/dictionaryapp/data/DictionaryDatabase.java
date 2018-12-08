@@ -9,22 +9,26 @@ import android.content.Context;
 public abstract class DictionaryDatabase extends RoomDatabase {
 
     private static DictionaryDatabase INSTANCE;
+    private static final Object LOCK = new Object();
 
     public abstract EntryDao entryDao();
 
-    public static DictionaryDatabase getDictionaryDatabase(Context context) {
+    public static DictionaryDatabase getInstance(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                    DictionaryDatabase.class, "dictionary-database")
-                    // allow queries on the main thread.
-                    // Don't do this on a real app! See PersistenceBasicSample for an example.
-                    .allowMainThreadQueries()
-                    .build();
+            synchronized(LOCK) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            DictionaryDatabase.class, "dictionary-database")
+                            .build();
+                }
+            }
         }
         return INSTANCE;
     }
 
     public static void destroyInstance() {
-        INSTANCE = null;
+        synchronized(DictionaryDatabase.class) {
+            INSTANCE = null;
+        }
     }
 }

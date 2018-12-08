@@ -33,15 +33,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Entry entry = mEntries.get(position);
         holder.wordTextView.setText(entry.getWord());
+        holder.contentTextView.setText(entry.getMeaning());
     }
 
     @Override
     public int getItemCount() {
+        if (mEntries == null) return 0;
         return mEntries.size();
     }
 
     public void setEntries(List<Entry> entries) {
         mEntries = entries;
+        notifyDataSetChanged();
     }
 
     class ListViewHolder extends RecyclerView.ViewHolder {
