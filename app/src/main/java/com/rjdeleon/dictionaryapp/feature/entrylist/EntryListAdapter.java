@@ -1,4 +1,4 @@
-package com.rjdeleon.dictionaryapp.list;
+package com.rjdeleon.dictionaryapp.feature.entrylist;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,27 +13,28 @@ import com.rjdeleon.dictionaryapp.data.Entry;
 
 import java.util.List;
 
-public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
+public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.EntryListViewHolder> {
 
     private LayoutInflater mInflater;
     private List<Entry> mEntries;
 
-    public ListAdapter(Context context) {
+    public EntryListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
-    public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ListViewHolder(mInflater.inflate(R.layout.fragment_list_item,
+    public EntryListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new EntryListViewHolder(mInflater.inflate(R.layout.fragment_list_item,
                 parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EntryListViewHolder holder, int position) {
         Entry entry = mEntries.get(position);
         holder.wordTextView.setText(entry.getWord());
         holder.contentTextView.setText(entry.getMeaning());
+        holder.setItemClickListener(createItemClickListener(entry.getId()));
     }
 
     @Override
@@ -47,15 +48,30 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         notifyDataSetChanged();
     }
 
-    class ListViewHolder extends RecyclerView.ViewHolder {
+    public View.OnClickListener createItemClickListener(int entryId) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        };
+    }
+
+    class EntryListViewHolder extends RecyclerView.ViewHolder {
+
+        View itemView;
         TextView wordTextView;
         TextView contentTextView;
 
-        ListViewHolder(View itemView) {
+        EntryListViewHolder(View itemView) {
             super(itemView);
+            this.itemView = itemView;
             wordTextView = itemView.findViewById(R.id.wordTextView);
             contentTextView = itemView.findViewById(R.id.contentTextView);
+        }
+
+        public void setItemClickListener(View.OnClickListener listener) {
+            itemView.setOnClickListener(listener);
         }
     }
 }

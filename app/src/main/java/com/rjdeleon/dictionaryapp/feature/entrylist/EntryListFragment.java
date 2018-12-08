@@ -1,4 +1,4 @@
-package com.rjdeleon.dictionaryapp.list;
+package com.rjdeleon.dictionaryapp.feature.entrylist;
 
 
 import android.arch.lifecycle.Observer;
@@ -20,14 +20,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListFragment extends Fragment {
+public class EntryListFragment extends Fragment {
 
     private RecyclerView listRecyclerView;
 
-    private ListAdapter mAdapter;
-    private ListViewModel mViewModel;
+    private EntryListAdapter mAdapter;
+    private EntryListViewModel mViewModel;
 
-    public ListFragment() {
+    public EntryListFragment() {
         // Required empty public constructor
     }
 
@@ -35,8 +35,8 @@ public class ListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAdapter = new ListAdapter(getContext());
-        mViewModel = ViewModelProviders.of(this).get(ListViewModel.class);
+        mAdapter = new EntryListAdapter(getContext());
+        mViewModel = ViewModelProviders.of(this).get(EntryListViewModel.class);
 
         mViewModel.getEntries().observe(this, new Observer<List<Entry>>() {
             @Override
