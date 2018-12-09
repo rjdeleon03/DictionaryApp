@@ -13,6 +13,8 @@ import com.rjdeleon.dictionaryapp.data.Entry;
 
 import java.util.List;
 
+import androidx.navigation.Navigation;
+
 public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.EntryListViewHolder> {
 
     private LayoutInflater mInflater;
@@ -48,10 +50,15 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
         notifyDataSetChanged();
     }
 
-    public View.OnClickListener createItemClickListener(int entryId) {
+    public View.OnClickListener createItemClickListener(final int entryId) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                EntryListFragmentDirections.ActionEntryListFragmentToEntryFragment action =
+                        EntryListFragmentDirections.actionEntryListFragmentToEntryFragment().setEntryId(entryId);
+                Navigation.findNavController(v).navigate(action);
+
             }
         };
     }

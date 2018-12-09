@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">DictionaryApp</string>
+    <string name="app_name">Manobo Dictionary</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="entry_meaning">Meaning</string>
+    <string name="entry_part_of_speech">Part of Speech</string>
+    <string name="entry_word">Word</string>
 </resources>
