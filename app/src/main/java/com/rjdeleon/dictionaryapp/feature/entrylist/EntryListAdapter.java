@@ -20,7 +20,7 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
     private LayoutInflater mInflater;
     private List<Entry> mEntries;
 
-    public EntryListAdapter(Context context) {
+    EntryListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
@@ -35,7 +35,7 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
     public void onBindViewHolder(@NonNull EntryListViewHolder holder, int position) {
         Entry entry = mEntries.get(position);
         holder.wordTextView.setText(entry.getWord());
-        holder.contentTextView.setText(entry.getMeaning());
+        holder.contentTextView.setText(entry.getPartOfSpeech());
         holder.setItemClickListener(createItemClickListener(entry.getId()));
     }
 
@@ -50,7 +50,7 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
         notifyDataSetChanged();
     }
 
-    public View.OnClickListener createItemClickListener(final int entryId) {
+    private View.OnClickListener createItemClickListener(final int entryId) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +76,7 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
             contentTextView = itemView.findViewById(R.id.contentTextView);
         }
 
-        public void setItemClickListener(View.OnClickListener listener) {
+        void setItemClickListener(View.OnClickListener listener) {
             itemView.setOnClickListener(listener);
         }
     }

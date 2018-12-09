@@ -6,4 +6,5 @@
     <string name="entry_meaning">Meaning</string>
     <string name="entry_part_of_speech">Part of Speech</string>
     <string name="entry_word">Word</string>
+    <string name="menu_search">Search</string>
 </resources>

@@ -6,10 +6,15 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rjdeleon.dictionaryapp.R;
 import com.rjdeleon.dictionaryapp.databinding.FragmentListBinding;
 import com.rjdeleon.dictionaryapp.data.Entry;
 
@@ -22,6 +27,8 @@ public class EntryListFragment extends Fragment {
 
     private EntryListAdapter mAdapter;
     private EntryListViewModel mViewModel;
+    private MenuItem mSearch;
+    private SearchView mSearchView;
 
     public EntryListFragment() {
         // Required empty public constructor
@@ -48,8 +55,28 @@ public class EntryListFragment extends Fragment {
         // Inflate the layout for this fragment
         FragmentListBinding binding = FragmentListBinding.inflate(inflater, container, false);
         binding.dictionaryList.setAdapter(mAdapter);
+        setHasOptionsMenu(true);
 
         return binding.getRoot();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.main_menu, menu);
+
+        mSearch = menu.findItem(R.id.action_search);
+        mSearchView = (SearchView) mSearch.getActionView();
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+    }
 }
