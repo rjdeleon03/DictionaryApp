@@ -6,13 +6,11 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rjdeleon.dictionaryapp.R;
+import com.rjdeleon.dictionaryapp.databinding.FragmentListBinding;
 import com.rjdeleon.dictionaryapp.data.Entry;
 
 import java.util.List;
@@ -21,8 +19,6 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class EntryListFragment extends Fragment {
-
-    private RecyclerView listRecyclerView;
 
     private EntryListAdapter mAdapter;
     private EntryListViewModel mViewModel;
@@ -50,12 +46,10 @@ public class EntryListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
-        listRecyclerView = view.findViewById(R.id.dictionaryList);
-        listRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        listRecyclerView.setAdapter(mAdapter);
+        FragmentListBinding binding = FragmentListBinding.inflate(inflater, container, false);
+        binding.dictionaryList.setAdapter(mAdapter);
 
-        return view;
+        return binding.getRoot();
     }
 
 }

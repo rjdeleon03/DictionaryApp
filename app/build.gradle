@@ -3,6 +3,9 @@ apply plugin: 'androidx.navigation.safeargs'
 
 android {
     compileSdkVersion 28
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
         applicationId "com.rjdeleon.dictionaryapp"
         minSdkVersion 14

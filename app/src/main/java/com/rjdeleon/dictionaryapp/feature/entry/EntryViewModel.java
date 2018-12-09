@@ -11,14 +11,10 @@ import com.rjdeleon.dictionaryapp.data.EntryRepository;
 public class EntryViewModel extends ViewModel {
 
     private EntryRepository mRepository;
-    private LiveData<Entry> mEntry;
+    public LiveData<Entry> entry;
 
     public EntryViewModel(@NonNull Application application, int entryId) {
         mRepository = new EntryRepository(application, entryId);
-        mEntry = mRepository.getEntry();
-    }
-
-    public LiveData<Entry> getEntry() {
-        return mEntry;
+        entry = mRepository.getEntry();
     }
 }

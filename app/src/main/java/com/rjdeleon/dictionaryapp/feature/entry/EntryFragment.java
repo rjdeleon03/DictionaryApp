@@ -1,10 +1,8 @@
 package com.rjdeleon.dictionaryapp.feature.entry;
 
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.rjdeleon.dictionaryapp.R;
+import com.rjdeleon.dictionaryapp.databinding.FragmentEntryBinding;
 import com.rjdeleon.dictionaryapp.data.Entry;
 
 /**
@@ -30,23 +29,19 @@ public class EntryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_entry, container, false);
+        final FragmentEntryBinding binding = FragmentEntryBinding.inflate(inflater, container, false);
         Bundle args = getArguments();
         if (args != null && getActivity() != null) {
             EntryViewModelFactory factory = new EntryViewModelFactory(
                     getActivity().getApplication(),
                     EntryFragmentArgs.fromBundle(args).getEntryId());
+
             mViewModel = ViewModelProviders.of(this, factory).get(EntryViewModel.class);
-            mViewModel.getEntry().observe(this, new Observer<Entry>() {
-                @Override
-                public void onChanged(@Nullable Entry entry) {
-                    if (entry == null) return;
-                    setupUi(view, entry);
-                }
-            });
+            binding.setViewModel(mViewModel);
+            binding.setLifecycleOwner(this);
         }
 
-        return view;
+        return binding.getRoot();
     }
 
     private void setupUi(View view, Entry entry) {
