@@ -21,7 +21,7 @@ public interface EntryDao {
     LiveData<Entry> findById(int id);
 
     @Query("SELECT * FROM entry where word LIKE :word")
-    Entry findByWord(String word);
+    LiveData<List<Entry>> findByWord(String word);
 
     @Insert
     void insertAll(Entry... entries);

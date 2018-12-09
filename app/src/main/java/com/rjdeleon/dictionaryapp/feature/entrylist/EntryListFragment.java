@@ -75,7 +75,8 @@ public class EntryListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                return false;
+                mViewModel.setFilter(s);
+                return true;
             }
         });
     }
