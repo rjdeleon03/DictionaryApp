@@ -35,7 +35,7 @@ public class EntryListViewModel extends AndroidViewModel {
         return mEntries;
     }
 
-    public void setFilter(String filter) {
+    void setFilter(String filter) {
         mFilter.setValue(filter);
     }
 
