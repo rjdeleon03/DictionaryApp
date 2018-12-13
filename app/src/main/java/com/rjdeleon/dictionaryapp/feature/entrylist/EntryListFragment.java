@@ -6,6 +6,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -64,9 +66,11 @@ public class EntryListFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.main_menu, menu);
+        setupActionBar();
 
         mSearch = menu.findItem(R.id.action_search);
         mSearchView = (SearchView) mSearch.getActionView();
+        mSearchView.setQueryHint("Find a word");
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -79,5 +83,15 @@ public class EntryListFragment extends Fragment {
                 return true;
             }
         });
+    }
+
+    private void setupActionBar() {
+        AppCompatActivity activity = ((AppCompatActivity) getActivity());
+        if (activity == null) return;
+
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar == null) return;
+
+        actionBar.setDisplayHomeAsUpEnabled(false);
     }
 }
