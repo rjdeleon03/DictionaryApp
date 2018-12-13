@@ -16,12 +16,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Hello"
+        android:textSize="20sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <TextView
         android:id="@+id/contentTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello"/>
+        android:text="Hello"
+        android:maxLines="1"
+        android:ellipsize="end"/>
 
 </LinearLayout>
