@@ -2,6 +2,7 @@ package com.rjdeleon.dictionaryapp.feature.entrylist;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,14 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.rjdeleon.dictionaryapp.Constants;
 import com.rjdeleon.dictionaryapp.R;
 import com.rjdeleon.dictionaryapp.data.Entry;
 
 import java.util.List;
 
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 
 public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.EntryListViewHolder> {
 
@@ -36,6 +39,10 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
     @Override
     public void onBindViewHolder(@NonNull EntryListViewHolder holder, int position) {
         Entry entry = mEntries.get(position);
+
+        ViewCompat.setTransitionName(holder.wordTextView,
+                Constants.ITEM_TRANSITION_PREFIX + String.valueOf(entry.getId()));
+
         holder.wordTextView.setText(entry.getWord());
         holder.contentTextView.setText(entry.getPartOfSpeech());
         holder.setItemClickListener(createItemClickListener(entry.getId()));
@@ -53,15 +60,18 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
     }
 
     private View.OnClickListener createItemClickListener(final int entryId) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        return v -> {
 
-                EntryListFragmentDirections.ActionEntryListFragmentToEntryFragment action =
-                        EntryListFragmentDirections.actionEntryListFragmentToEntryFragment().setEntryId(entryId);
-                Navigation.findNavController(v).navigate(action);
+            EntryListFragmentDirections.ActionEntryListFragmentToEntryFragment action =
+                    EntryListFragmentDirections.actionEntryListFragmentToEntryFragment().setEntryId(entryId);
 
-            }
+            String transitionName = ViewCompat.getTransitionName(v.findViewById(R.id.wordTextView));
+            FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                    .addSharedElement(v.findViewById(R.id.wordTextView), transitionName)
+                    .build();
+
+            Navigation.findNavController(v).navigate(action, extras);
+
         };
     }
 

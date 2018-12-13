@@ -10,6 +10,7 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/wordField"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".feature.entry.EntryFragment">
@@ -37,7 +38,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/wordField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -49,7 +49,8 @@
                 android:shadowColor="#ff000000"
                 android:shadowRadius="3.0"
                 android:shadowDx="3.0"
-                android:shadowDy="3.0"/>
+                android:shadowDy="3.0"
+                android:transitionName="entry_item_transition"/>
 
         </LinearLayout>
 
