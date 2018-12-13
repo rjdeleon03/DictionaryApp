@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@{viewModel.entry.word}"
-                android:fontFamily="@font/kaushanscript"
+                app:fontFamily="@font/kaushanscript"
                 android:textSize="40sp"
                 android:textColor="@android:color/white"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
