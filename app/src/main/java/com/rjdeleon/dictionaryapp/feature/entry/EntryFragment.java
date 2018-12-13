@@ -3,6 +3,7 @@ package com.rjdeleon.dictionaryapp.feature.entry;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +13,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.rjdeleon.dictionaryapp.R;
 import com.rjdeleon.dictionaryapp.databinding.FragmentEntryBinding;
 import com.rjdeleon.dictionaryapp.data.Entry;
 
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 /**
@@ -50,6 +53,10 @@ public class EntryFragment extends Fragment {
             binding.setLifecycleOwner(this);
         }
 
+        ImageButton upButton = binding.getRoot().findViewById(R.id.upButton);
+        final NavController navController = NavHostFragment.findNavController(this);
+        upButton.setOnClickListener(v -> navController.navigateUp());
+
         return binding.getRoot();
     }
 
@@ -59,17 +66,6 @@ public class EntryFragment extends Fragment {
         setupActionBar();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavHostFragment.findNavController(this).navigateUp();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     private void setupActionBar() {
         AppCompatActivity activity = ((AppCompatActivity) getActivity());
         if (activity == null) return;
@@ -77,6 +73,6 @@ public class EntryFragment extends Fragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar == null) return;
 
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.hide();
     }
 }

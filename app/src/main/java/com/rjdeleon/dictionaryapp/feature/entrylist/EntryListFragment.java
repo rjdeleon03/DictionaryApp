@@ -92,6 +92,7 @@ public class EntryListFragment extends Fragment {
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar == null) return;
 
+        actionBar.show();
         actionBar.setDisplayHomeAsUpEnabled(false);
     }
 }
