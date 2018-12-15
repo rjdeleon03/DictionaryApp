@@ -2,25 +2,19 @@ package com.rjdeleon.dictionaryapp.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+
+import java.util.List;
 
 @Entity(tableName = "entry")
 public class Entry {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int id;
-
-    @ColumnInfo(name = "parent_id")
-    private int parentId;
 
     @ColumnInfo(name = "word")
     private String word;
-
-    @ColumnInfo(name = "part_of_speech")
-    private String partOfSpeech;
-
-    @ColumnInfo(name = "meaning")
-    private String meaning;
 
     @ColumnInfo(name = "note")
     private String note;
@@ -28,13 +22,22 @@ public class Entry {
     @ColumnInfo(name = "related_word")
     private String relatedWord;
 
-    public Entry(int parentId, String word, String partOfSpeech, String meaning, String note, String relatedWord) {
-        this.parentId = parentId;
+    @Ignore
+    private List<MeaningSet> meaningSet;
+
+    public Entry(int id, String word, String note, String relatedWord) {
+        this.id = id;
         this.word = word;
-        this.partOfSpeech = partOfSpeech;
-        this.meaning = meaning;
         this.note = note;
         this.relatedWord = relatedWord;
+    }
+
+    public Entry(int id, String word, String note, String relatedWord, List<MeaningSet> meaningSet) {
+        this.id = id;
+        this.word = word;
+        this.note = note;
+        this.relatedWord = relatedWord;
+        this.meaningSet = meaningSet;
     }
 
     public int getId() {
@@ -45,36 +48,12 @@ public class Entry {
         this.id = id;
     }
 
-    public int getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
-    }
-
     public String getWord() {
         return word;
     }
 
     public void setWord(String word) {
         this.word = word;
-    }
-
-    public String getPartOfSpeech() {
-        return partOfSpeech;
-    }
-
-    public void setPartOfSpeech(String partOfSpeech) {
-        this.partOfSpeech = partOfSpeech;
-    }
-
-    public String getMeaning() {
-        return meaning;
-    }
-
-    public void setMeaning(String meaning) {
-        this.meaning = meaning;
     }
 
     public String getNote() {
@@ -91,5 +70,13 @@ public class Entry {
 
     public void setRelatedWord(String relatedWord) {
         this.relatedWord = relatedWord;
+    }
+
+    public List<MeaningSet> getMeaningSet() {
+        return meaningSet;
+    }
+
+    public void setMeaningSet(List<MeaningSet> meaningSetList) {
+        this.meaningSet = meaningSetList;
     }
 }

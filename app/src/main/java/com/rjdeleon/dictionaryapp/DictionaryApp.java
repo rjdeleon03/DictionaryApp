@@ -57,16 +57,15 @@ public class DictionaryApp extends Application {
 
                     dictEntries = gson.fromJson(dictJson, listType);
 
-                    for(Entry entry : dictEntries) {
+                    for (int i = 1; i <= dictEntries.size(); i++) {
+                        Entry entry = dictEntries.get(i);
+                        entry.setId(i);
                         db.entryDao().insertAll(entry);
                     }
 
-                    db.entryDao().getAll().observeForever(new Observer<List<Entry>>() {
-                        @Override
-                        public void onChanged(@Nullable List<Entry> entries) {
+                    db.entryDao().getAll().observeForever(entries -> {
 
-                            int x = 5;
-                        }
+                        int x = 5;
                     });
 
                 } catch (Exception ex) {

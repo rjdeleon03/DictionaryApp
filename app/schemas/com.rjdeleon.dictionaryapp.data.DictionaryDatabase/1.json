@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b0c71022c78fb819225d3e6ed13f4fe3",
+    "identityHash": "e9c2aadefe1a8b92bd5013b4e70d50b8",
     "entities": [
       {
         "tableName": "entry",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `parent_id` INTEGER NOT NULL, `word` TEXT, `part_of_speech` TEXT, `meaning` TEXT, `note` TEXT, `related_word` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `word` TEXT, `note` TEXT, `related_word` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -15,26 +15,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "parentId",
-            "columnName": "parent_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
             "fieldPath": "word",
             "columnName": "word",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "partOfSpeech",
-            "columnName": "part_of_speech",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "meaning",
-            "columnName": "meaning",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -55,7 +37,7 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -63,7 +45,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"b0c71022c78fb819225d3e6ed13f4fe3\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e9c2aadefe1a8b92bd5013b4e70d50b8\")"
     ]
   }
 }

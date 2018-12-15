@@ -44,7 +44,7 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
                 Constants.ITEM_TRANSITION_PREFIX + String.valueOf(entry.getId()));
 
         holder.wordTextView.setText(entry.getWord());
-        holder.contentTextView.setText(entry.getMeaning());
+//        holder.contentTextView.setText(entry.getMeaning());
         holder.setItemClickListener(createItemClickListener(entry.getId()));
     }
 
