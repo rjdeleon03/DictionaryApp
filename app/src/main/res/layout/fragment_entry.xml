@@ -16,15 +16,16 @@
         tools:context=".feature.entry.EntryFragment">
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:foreground="#AA000000"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pattern"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="@+id/linearLayout"
             app:layout_constraintTop_toTopOf="@+id/linearLayout"
-            android:foreground="#AA000000"
-            android:src="@drawable/pattern"
-            android:scaleType="centerCrop"
             tools:ignore="ContentDescription" />
 
         <LinearLayout
@@ -53,6 +54,17 @@
                 android:transitionName="entry_item_transition"/>
 
         </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/meaningSetList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/fragment_entry_meaning_item" />
 
         <ImageButton
             android:id="@+id/upButton"

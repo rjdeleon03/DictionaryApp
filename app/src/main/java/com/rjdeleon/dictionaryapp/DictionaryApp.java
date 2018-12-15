@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.rjdeleon.dictionaryapp.data.DictionaryDatabase;
 import com.rjdeleon.dictionaryapp.data.Entry;
+import com.rjdeleon.dictionaryapp.data.MeaningSet;
 import com.rjdeleon.dictionaryapp.utils.AppExecutors;
 
 import java.io.InputStream;
@@ -61,6 +62,11 @@ public class DictionaryApp extends Application {
                         Entry entry = dictEntries.get(i);
                         entry.setId(i);
                         db.entryDao().insertAll(entry);
+
+                        for(MeaningSet ms : entry.getMeaningSet()) {
+                            ms.setWordId(entry.getId());
+                        }
+                        db.meaningSetDao().insertAll(entry.getMeaningSet());
                     }
 
                     db.entryDao().getAll().observeForever(entries -> {

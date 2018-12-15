@@ -5,26 +5,21 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.transition.TransitionInflater;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.ChangeBounds;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.rjdeleon.dictionaryapp.Constants;
 import com.rjdeleon.dictionaryapp.R;
 import com.rjdeleon.dictionaryapp.databinding.FragmentEntryBinding;
-import com.rjdeleon.dictionaryapp.data.Entry;
 
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -35,6 +30,7 @@ import androidx.navigation.fragment.NavHostFragment;
 public class EntryFragment extends Fragment {
 
 
+    private MeaningSetAdapter mAdapter;
     private EntryViewModel mViewModel;
 
     public EntryFragment() {
@@ -65,6 +61,13 @@ public class EntryFragment extends Fragment {
 
             mViewModel = ViewModelProviders.of(this, factory).get(EntryViewModel.class);
             binding.setViewModel(mViewModel);
+
+            mAdapter = new MeaningSetAdapter(getContext());
+            mViewModel.meaningSets.observe(this, meaningSets -> {
+                mAdapter.setMeaningSets(meaningSets);
+            });
+            binding.meaningSetList.setAdapter(mAdapter);
+
             binding.setLifecycleOwner(this);
 
             ViewCompat.setTransitionName(binding.getRoot().findViewById(R.id.wordField),
