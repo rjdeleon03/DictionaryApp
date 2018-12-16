@@ -69,10 +69,10 @@ public class DictionaryApp extends Application {
                         db.meaningSetDao().insertAll(entry.getMeaningSet());
                     }
 
-                    db.entryDao().getAll().observeForever(entries -> {
-
-                        int x = 5;
-                    });
+//                    db.entryDao().getAll().observeForever(entries -> {
+//
+//                        int x = 5;
+//                    });
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
