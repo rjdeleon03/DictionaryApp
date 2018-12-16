@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,13 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
         ViewCompat.setTransitionName(holder.wordTextView,
                 Constants.ITEM_TRANSITION_PREFIX + String.valueOf(entry.getId()));
 
+        int color = R.color.rust;
+        if (position % 2 == 0) {
+            color = R.color.colorPrimaryDark;
+        }
+
         holder.wordTextView.setText(entry.getWord());
-//        holder.contentTextView.setText(entry.getMeaning());
+        holder.entryColor.setBackgroundColor(holder.entryColor.getContext().getResources().getColor(color));
         holder.setItemClickListener(createItemClickListener(entry.getId()));
     }
 
@@ -79,13 +85,13 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
 
         View itemView;
         TextView wordTextView;
-        TextView contentTextView;
+        View entryColor;
 
         EntryListViewHolder(View itemView) {
             super(itemView);
             this.itemView = itemView;
             wordTextView = itemView.findViewById(R.id.wordTextView);
-            contentTextView = itemView.findViewById(R.id.contentTextView);
+            entryColor = itemView.findViewById(R.id.entryColor);
         }
 
         void setItemClickListener(View.OnClickListener listener) {
