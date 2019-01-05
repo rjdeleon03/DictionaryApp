@@ -71,9 +71,12 @@ public class EntryListAdapter extends RecyclerView.Adapter<EntryListAdapter.Entr
             EntryListFragmentDirections.ActionEntryListFragmentToEntryFragment action =
                     EntryListFragmentDirections.actionEntryListFragmentToEntryFragment().setEntryId(entryId);
 
-            String transitionName = ViewCompat.getTransitionName(v.findViewById(R.id.wordTextView));
+            TextView wordTextView = v.findViewById(R.id.wordTextView);
+            String transitionName = ViewCompat.getTransitionName(wordTextView);
+
+            assert transitionName != null;
             FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
-                    .addSharedElement(v.findViewById(R.id.wordTextView), transitionName)
+                    .addSharedElement(wordTextView, transitionName)
                     .build();
 
             Navigation.findNavController(v).navigate(action, extras);
