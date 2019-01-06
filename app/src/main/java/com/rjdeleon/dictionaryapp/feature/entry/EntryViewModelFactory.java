@@ -10,7 +10,7 @@ public class EntryViewModelFactory extends ViewModelProvider.NewInstanceFactory 
     private final Application mApplication;
     private final int mId;
 
-    public EntryViewModelFactory(Application mApplication, int mId) {
+    EntryViewModelFactory(Application mApplication, int mId) {
         this.mApplication = mApplication;
         this.mId = mId;
     }
