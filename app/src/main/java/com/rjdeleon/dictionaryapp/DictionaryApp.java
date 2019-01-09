@@ -34,49 +34,41 @@ public class DictionaryApp extends Application {
         final DictionaryDatabase db = DictionaryDatabase
                 .getInstance(getApplicationContext());
 
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                if(db.entryDao().getCount() > 0) return;
+        AppExecutors.getInstance().diskIO().execute(() -> {
+            if(db.entryDao().getCount() > 0) return;
 
-                Gson gson = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().create();
 
-                String dictJson;
-                try {
-                    /* Read JSON data from file */
-                    InputStream is = getApplicationContext()
-                            .getAssets().open(SEED_FOLDER + SEED_FILENAME);
-                    int size = is.available();
-                    byte[] buffer = new byte[size];
-                    is.read(buffer);
-                    is.close();
-                    dictJson = new String(buffer, UTF_8_ENCODING);
+            String dictJson;
+            try {
+                /* Read JSON data from file */
+                InputStream is = getApplicationContext()
+                        .getAssets().open(SEED_FOLDER + SEED_FILENAME);
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+                dictJson = new String(buffer, UTF_8_ENCODING);
 
-                    /* Deserialize JSON data */
-                    List<Entry> dictEntries = null;
-                    Type listType = new TypeToken<ArrayList<Entry>>(){}.getType();
+                /* Deserialize JSON data */
+                List<Entry> dictEntries;
+                Type listType = new TypeToken<ArrayList<Entry>>(){}.getType();
 
-                    dictEntries = gson.fromJson(dictJson, listType);
+                dictEntries = gson.fromJson(dictJson, listType);
 
-                    for (int i = 1; i <= dictEntries.size(); i++) {
-                        Entry entry = dictEntries.get(i);
-                        entry.setId(i);
-                        db.entryDao().insertAll(entry);
+                for (int i = 1; i <= dictEntries.size(); i++) {
+                    Entry entry = dictEntries.get(i);
+                    entry.setId(i);
+                    db.entryDao().insertAll(entry);
 
-                        for(MeaningSet ms : entry.getMeaningSet()) {
-                            ms.setWordId(entry.getId());
-                        }
-                        db.meaningSetDao().insertAll(entry.getMeaningSet());
+                    for(MeaningSet ms : entry.getMeaningSet()) {
+                        ms.setWordId(entry.getId());
                     }
-
-//                    db.entryDao().getAll().observeForever(entries -> {
-//
-//                        int x = 5;
-//                    });
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                    db.meaningSetDao().insertAll(entry.getMeaningSet());
                 }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         });
     }
